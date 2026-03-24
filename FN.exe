@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ion Services</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+    }
+
+    /* Floating orbs */
+    body::before, body::after {
+      content: '';
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.4;
+      animation: float 8s ease-in-out infinite;
+      pointer-events: none;
+    }
+    body::before {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, #7b2ff7, #f107a3);
+      top: -100px; left: -100px;
+    }
+    body::after {
+      width: 350px; height: 350px;
+      background: radial-gradient(circle, #00c9ff, #92fe9d);
+      bottom: -80px; right: -80px;
+      animation-delay: -4s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(30px) scale(1.05); }
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 24px;
+      padding: 60px 50px;
+      text-align: center;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+      max-width: 420px;
+      width: 90%;
+      position: relative;
+      z-index: 1;
+    }
+
+    .icon {
+      font-size: 56px;
+      margin-bottom: 16px;
+      display: block;
+      animation: pulse 2.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+    }
+
+    h1 {
+      font-size: 2.4rem;
+      font-weight: 800;
+      background: linear-gradient(90deg, #a78bfa, #f472b6, #60a5fa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.5px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: rgba(255,255,255,0.55);
+      font-size: 0.95rem;
+      margin-bottom: 36px;
+      line-height: 1.6;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 40px;
+      background: linear-gradient(135deg, #7b2ff7, #f107a3);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      text-decoration: none;
+      letter-spacing: 0.5px;
+      box-shadow: 0 8px 30px rgba(123, 47, 247, 0.5);
+      transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
+      border-radius: inherit;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 14px 40px rgba(241, 7, 163, 0.6);
+      filter: brightness(1.1);
+    }
+
+    .btn:active {
+      transform: translateY(0) scale(0.98);
+    }
+
+    .btn svg {
+      width: 18px; height: 18px;
+      fill: white;
+      flex-shrink: 0;
+    }
+
+    .site-subtitle {
+      position: fixed;
+      top: 82px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      color: rgba(255, 255, 255, 0.5);
+      white-space: nowrap;
+    }
+
+    .site-title {
+      position: fixed;
+      top: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      font-size: 2.8rem;
+      font-weight: 900;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      background: linear-gradient(90deg, #a78bfa, #f472b6, #60a5fa, #a78bfa);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 4s linear infinite;
+      white-space: nowrap;
+      filter: drop-shadow(0 0 18px rgba(167, 139, 250, 0.5));
+    }
+
+    @keyframes shimmer {
+      0% { background-position: 0% center; }
+      100% { background-position: 200% center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="site-title">Ion Services</div>
+  <div class="site-subtitle">discord.gg/zQHDpnNdup</div>
+  <div class="card">
+    <span class="icon">🎮</span>
+    <h1>FN Free</h1>
+    <p>Click the button below to download and get started instantly.</p>
+    <a class="btn" href="FN.exe" download="FN.exe">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 16l-5-5h3V4h4v7h3l-5 5zm-7 2h14v2H5v-2z"/>
+      </svg>
+      Download Now
+    </a>
+  </div>
+</body>
+</html>

