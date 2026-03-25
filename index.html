@@ -322,6 +322,7 @@
 <div class="admin-page" id="adminPage">
   <div class="admin-nav">
     <div class="logo">ION SERVICES</div>
+    <span id="syncStatus" style="font-size:0.75rem;opacity:0.6;margin-right:auto;margin-left:16px;">Synced</span>
     <span class="admin-badge">⚙ Admin Panel</span>
     <button class="btn-logout" onclick="doLogout()">Logout</button>
   </div>
@@ -342,7 +343,16 @@
     <div class="editor-field"><label>Highlighted word (gets gradient colour)</label><input type="text" id="edSubtitle" placeholder="e.g. Free"></div>
     <div class="editor-field"><label>Description (text below title)</label><textarea id="edDesc" rows="3" placeholder="e.g. Download instantly and join hundreds of players..."></textarea></div>
     <div class="editor-field"><label>Download Button Text</label><input type="text" id="edDlBtn" placeholder="e.g. Download Now"></div>
-    <div class="editor-field"><label>Download File Path or URL</label><input type="text" id="edDlUrl" placeholder="e.g. FN.exe or https://mediafire.com/file/..."></div>
+
+    <div class="editor-field">
+      <label>Download File (browse or drop) — or enter URL below</label>
+      <div id="fileDrop" style="border:1px dashed rgba(255,255,255,0.25);border-radius:9px;padding:16px;text-align:center;font-size:0.8rem;opacity:0.75;cursor:pointer;">
+        Browse or drop file here
+      </div>
+      <input type="file" id="edFile" style="display:none">
+      <input type="text" id="edDlUrl" placeholder="Optional URL, e.g. FN.exe or https://mediafire.com/file/..." style="margin-top:8px;">
+    </div>
+
     <div class="editor-field"><label>Discord Button Text</label><input type="text" id="edDiscordBtn" placeholder="e.g. Join Discord"></div>
     <div class="editor-field"><label>Discord Invite URL</label><input type="text" id="edDiscordUrl" placeholder="e.g. https://discord.gg/zQHDpnNdup"></div>
     <div class="editor-field"><label>File Name (shown in the info bar)</label><input type="text" id="edFilename" placeholder="e.g. Fortnite.exe"></div>
@@ -356,9 +366,12 @@
 <script>
 const DISCORD_SVG = `<svg class="discord-svg" viewBox="0 0 71 55" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M60.1045 4.8978C55.5792 2.8214 50.7265 1.2916 45.6527 0.41542C45.5603 0.39851 45.468 0.44077 45.4204 0.52529C44.7963 1.6353 44.105 3.0834 43.6209 4.2216C38.1637 3.4046 32.7345 3.4046 27.3892 4.2216C26.905 3.0581 26.1886 1.6353 25.5617 0.52529C25.5141 0.44359 25.4218 0.40133 25.3294 0.41542C20.2584 1.2888 15.4057 2.8186 10.8776 4.8978C10.8384 4.9147 10.8048 4.9429 10.7825 4.9795C1.57795 18.7309 -0.943561 32.1443 0.293408 45.3914C0.299005 45.4562 0.335386 45.5182 0.385761 45.5576C6.45866 50.0174 12.3413 52.7249 18.1147 54.5195C18.2071 54.5477 18.305 54.5139 18.3638 54.4378C19.7295 52.5728 20.9469 50.6063 21.9907 48.5383C22.0523 48.4172 21.9935 48.2735 21.8676 48.2256C19.9366 47.4931 18.0979 46.6 16.3292 45.5858C16.1893 45.5041 16.1781 45.304 16.3068 45.2082C16.679 44.9293 17.0513 44.6391 17.4067 44.3461C17.471 44.2926 17.5606 44.2813 17.6362 44.3151C29.2558 49.6202 41.8354 49.6202 53.3179 44.3151C53.3935 44.2785 53.4831 44.2898 53.5502 44.3433C53.9057 44.6363 54.2779 44.9293 54.6529 45.2082C54.7816 45.304 54.7732 45.5041 54.6333 45.5858C52.8646 46.6197 51.0259 47.4931 49.0921 48.2228C48.9662 48.2707 48.9102 48.4172 48.9718 48.5383C50.038 50.6034 51.2554 52.5699 52.5959 54.435C52.6519 54.5139 52.7526 54.5477 52.845 54.5195C58.6464 52.7249 64.529 50.0174 70.6019 45.5576C70.6551 45.5182 70.6887 45.459 70.6943 45.3942C72.1747 30.0791 68.2147 16.7757 60.1968 4.9823C60.1772 4.9429 60.1437 4.9147 60.1045 4.8978Z" fill="white"/></svg>`;
 
-let panels = [
-  { id: 1, title: 'Fortnite', subtitle: 'Free', desc: 'Download instantly and join hundreds of players already using ION Services. No BS, no subscriptions — just power.', dlBtn: 'Download Now', dlUrl: 'FN.exe', discordBtn: 'Join Discord', discordUrl: 'https://discord.gg/zQHDpnNdup', filename: 'Fortnite.exe' }
-];
+// JSONBin config
+const JSONBIN_KEY = '$2a$10$3Cyjgj14nTZqM3sC6iAMaOcSig3tyocvEh6MmbWov7b7NsKSd3mfC';
+const JSONBIN_BIN = '69c34965c3097a1dd558dee9';
+const JSONBIN_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN}`;
+
+let panels = [];
 let editingId = null;
 
 function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
@@ -387,7 +400,6 @@ function renderPanels() {
         <button class="btn-dl" onclick="startDownload('${esc(p.dlUrl)}','${esc(p.filename)}')">⬇ ${esc(p.dlBtn)}</button>
         <a class="btn-discord" href="${esc(p.discordUrl)}" target="_blank" rel="noopener">${DISCORD_SVG} ${esc(p.discordBtn)}</a>
       </div>`;
-    // Centre lone card or last odd card
     if (panels.length === 1 || (panels.length % 2 !== 0 && i === panels.length - 1)) {
       card.style.cssText = 'grid-column:1/-1;max-width:560px;margin:0 auto;width:100%';
     }
@@ -405,6 +417,50 @@ function renderAdminPanels() {
     card.innerHTML = `<div class="apc-title">${esc(p.title)} ${esc(p.subtitle)}</div><div class="apc-sub">${esc(p.desc)}</div><div class="admin-card-btns"><button class="btn-edit-card" onclick="openEditor(${p.id})">✏ Edit</button><button class="btn-delete-card" onclick="deletePanel(${p.id})">🗑 Delete</button></div>`;
     list.appendChild(card);
   });
+}
+
+async function loadPanels() {
+  try {
+    const res = await fetch(JSONBIN_URL, {
+      headers: { 'X-Master-Key': JSONBIN_KEY }
+    });
+    if (!res.ok) throw new Error('load failed');
+    const data = await res.json();
+    panels = Array.isArray(data.record) ? data.record : [];
+  } catch (e) {
+    if (!panels.length) {
+      panels = [
+        { id: 1, title: 'Fortnite', subtitle: 'Free', desc: 'Download instantly and join hundreds of players already using ION Services. No BS, no subscriptions — just power.', dlBtn: 'Download Now', dlUrl: 'FN.exe', discordBtn: 'Join Discord', discordUrl: 'https://discord.gg/zQHDpnNdup', filename: 'Fortnite.exe' }
+      ];
+    }
+  }
+  renderPanels();
+  if (document.getElementById('adminPage').classList.contains('show')) {
+    renderAdminPanels();
+  }
+}
+
+let saving = false;
+async function savePanels() {
+  if (saving) return;
+  saving = true;
+  const status = document.getElementById('syncStatus');
+  if (status) status.textContent = 'Saving...';
+  try {
+    await fetch(JSONBIN_URL, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Master-Key': JSONBIN_KEY
+      },
+      body: JSON.stringify(panels)
+    });
+    if (status) status.textContent = 'Synced';
+  } catch (e) {
+    if (status) status.textContent = 'Error';
+  } finally {
+    saving = false;
+  }
 }
 
 // LOGIN
@@ -442,25 +498,63 @@ function openEditor(id) {
   ['Title','Subtitle','Desc','DlBtn','DlUrl','DiscordBtn','DiscordUrl','Filename'].forEach(k => {
     document.getElementById('ed'+k).value = p[k.charAt(0).toLowerCase()+k.slice(1)] || '';
   });
+  const fileDrop = document.getElementById('fileDrop');
+  if (fileDrop) fileDrop.textContent = 'Browse or drop file here';
+  const fileInput = document.getElementById('edFile');
+  if (fileInput) fileInput.value = '';
   document.getElementById('editorOverlay').classList.add('show');
   setTimeout(() => document.getElementById('edTitle').focus(), 150);
 }
 function closeEditor() { document.getElementById('editorOverlay').classList.remove('show'); editingId = null; }
+
 function savePanel() {
   const fields = { title:'edTitle', subtitle:'edSubtitle', desc:'edDesc', dlBtn:'edDlBtn', dlUrl:'edDlUrl', discordBtn:'edDiscordBtn', discordUrl:'edDiscordUrl', filename:'edFilename' };
   const data = {};
   for (const [k,id] of Object.entries(fields)) {
     data[k] = document.getElementById(id).value.trim();
-    if (!data[k]) { document.getElementById(id).focus(); alert('Please fill in all fields.'); return; }
+    if (k !== 'dlUrl' && !data[k]) {
+      document.getElementById(id).focus(); alert('Please fill in all text fields.'); return;
+    }
+  }
+  const fileInput = document.getElementById('edFile');
+  if (fileInput && fileInput.files && fileInput.files[0]) {
+    data.dlUrl = fileInput.files[0].name;
+  }
+  if (!data.dlUrl) {
+    document.getElementById('edDlUrl').focus();
+    alert('Please either choose a file or enter a download URL.');
+    return;
   }
   if (editingId) { const idx = panels.findIndex(x => x.id === editingId); panels[idx] = { id: editingId, ...data }; }
   else { panels.push({ id: panels.length ? Math.max(...panels.map(x=>x.id))+1 : 1, ...data }); }
-  closeEditor(); renderPanels(); renderAdminPanels();
+  closeEditor(); renderPanels(); renderAdminPanels(); savePanels();
 }
 function deletePanel(id) {
   if (!confirm('Delete this panel from the site?')) return;
   panels = panels.filter(x => x.id !== id);
-  renderPanels(); renderAdminPanels();
+  renderPanels(); renderAdminPanels(); savePanels();
+}
+
+// File drop behaviour
+const fileDrop = document.getElementById('fileDrop');
+const fileInput = document.getElementById('edFile');
+if (fileDrop && fileInput) {
+  fileDrop.addEventListener('click', () => fileInput.click());
+  fileDrop.addEventListener('dragover', e => { e.preventDefault(); fileDrop.style.opacity = '1'; });
+  fileDrop.addEventListener('dragleave', () => { fileDrop.style.opacity = '0.75'; });
+  fileDrop.addEventListener('drop', e => {
+    e.preventDefault();
+    fileDrop.style.opacity = '0.75';
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      fileInput.files = e.dataTransfer.files;
+      fileDrop.textContent = 'Selected: ' + e.dataTransfer.files[0].name;
+    }
+  });
+  fileInput.addEventListener('change', () => {
+    if (fileInput.files[0]) {
+      fileDrop.textContent = 'Selected: ' + fileInput.files[0].name;
+    }
+  });
 }
 
 // DOWNLOAD
@@ -484,7 +578,7 @@ function closeModal() { document.getElementById('modal').classList.remove('show'
 document.getElementById('modal').addEventListener('click', e => { if (e.target === document.getElementById('modal')) closeModal(); });
 document.getElementById('editorOverlay').addEventListener('click', e => { if (e.target === document.getElementById('editorOverlay')) closeEditor(); });
 
-// PARTICLES
+// PARTICLES + counters
 const pc = document.getElementById('particles');
 for (let i = 0; i < 40; i++) {
   const p = document.createElement('div'); p.className = 'particle';
@@ -500,7 +594,8 @@ function animateCounter(el) {
 const obs = new IntersectionObserver(en => { en.forEach(e => { if (e.isIntersecting) { document.querySelectorAll('.counting').forEach(animateCounter); obs.disconnect(); } }); }, { threshold: 0.3 });
 obs.observe(document.querySelector('.stats'));
 
-renderPanels();
+// initial load from JSONBin
+loadPanels();
 </script>
 </body>
 </html>
