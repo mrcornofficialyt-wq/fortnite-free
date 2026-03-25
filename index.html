@@ -27,6 +27,7 @@
 
   .wrap { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 0 24px; }
 
+  /* NAV */
   nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 16px 0; background: rgba(5,8,16,0.7); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
   nav .inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; }
   .logo { font-family: 'Orbitron', monospace; font-weight: 900; font-size: 1.2rem; letter-spacing: 2px; background: linear-gradient(90deg, var(--pink), var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
@@ -38,6 +39,7 @@
   .btn-admin-nav { background: none; border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.35); font-size: 0.68rem; letter-spacing: 1px; text-transform: uppercase; padding: 5px 12px; border-radius: 6px; cursor: pointer; transition: all 0.2s; font-family: 'Inter', sans-serif; }
   .btn-admin-nav:hover { border-color: var(--pink); color: var(--pink); }
 
+  /* HERO */
   .hero { padding: 160px 0 80px; text-align: center; }
   .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: var(--card); border: 1px solid var(--border); border-radius: 30px; padding: 6px 16px; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: var(--cyan); margin-bottom: 28px; animation: fadeUp 0.6s ease both; }
   .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); animation: blink 1.5s infinite; }
@@ -59,6 +61,7 @@
   .star.animate { animation: starPop 0.3s ease both; }
   @keyframes starPop { 0%{transform:scale(0.5);opacity:0} 70%{transform:scale(1.2)} 100%{transform:scale(1);opacity:1} }
 
+  /* STATS */
   .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap: 16px; margin-top: 60px; }
   .stat-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 24px 20px; text-align: center; position: relative; overflow: hidden; transition: transform 0.3s, border-color 0.3s; animation: fadeUp 0.7s ease both; }
   .stat-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--pink), transparent); opacity: 0; transition: opacity 0.3s; }
@@ -92,7 +95,7 @@
   .btn-discord:hover { background: rgba(88,101,242,0.3); transform: translateY(-2px); box-shadow: 0 0 24px rgba(88,101,242,0.4); }
   .discord-svg { width: 18px; height: 18px; flex-shrink: 0; }
 
-  /* HOW */
+  /* HOW IT WORKS */
   .how { margin-top: 80px; }
   .section-label { text-align: center; font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase; color: var(--cyan); margin-bottom: 12px; }
   .section-title { text-align: center; font-family: 'Orbitron', monospace; font-size: 1.8rem; font-weight: 700; color: #fff; margin-bottom: 48px; }
@@ -119,7 +122,6 @@
   .disclaimer { margin-top: 40px; background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 24px 28px; text-align: center; }
   .disclaimer-title { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 10px; }
   .disclaimer p { font-size: 0.76rem; line-height: 1.8; color: rgba(255,255,255,0.3); }
-  .disclaimer strong { color: rgba(255,255,255,0.5); }
 
   footer { margin-top: 60px; border-top: 1px solid var(--border); padding: 40px 0; text-align: center; font-size: 0.78rem; opacity: 0.4; letter-spacing: 1px; }
   footer span { color: var(--pink); opacity: 1; }
@@ -161,21 +163,43 @@
   /* ADMIN */
   .admin-page { display: none; position: fixed; inset: 0; z-index: 300; background: #070b18; overflow-y: auto; }
   .admin-page.show { display: block; }
-  .admin-nav { background: rgba(5,8,16,0.95); border-bottom: 1px solid var(--border); padding: 16px 32px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 10; backdrop-filter: blur(20px); }
-  .admin-badge { background: rgba(255,45,120,0.12); border: 1px solid rgba(255,45,120,0.35); color: var(--pink); font-size: 0.68rem; letter-spacing: 2px; text-transform: uppercase; padding: 4px 12px; border-radius: 20px; }
-  .btn-logout { background: none; border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.5); padding: 7px 16px; border-radius: 8px; cursor: pointer; font-size: 0.78rem; transition: all 0.2s; font-family: 'Inter', sans-serif; }
+  .admin-nav { background: rgba(5,8,16,0.95); border-bottom: 1px solid var(--border); padding: 16px 32px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 10; backdrop-filter: blur(20px); gap: 16px; }
+  .admin-badge { background: rgba(255,45,120,0.12); border: 1px solid rgba(255,45,120,0.35); color: var(--pink); font-size: 0.68rem; letter-spacing: 2px; text-transform: uppercase; padding: 4px 12px; border-radius: 20px; white-space: nowrap; }
+  .sync-status { font-size: 0.72rem; display: flex; align-items: center; gap: 6px; letter-spacing: 1px; text-transform: uppercase; }
+  .sync-dot { width: 7px; height: 7px; border-radius: 50%; background: #4ade80; flex-shrink: 0; transition: background 0.3s; }
+  .sync-dot.saving { background: #fbbf24; animation: pulse 0.8s infinite; }
+  .sync-dot.error { background: var(--pink); }
+  .btn-logout { background: none; border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.5); padding: 7px 16px; border-radius: 8px; cursor: pointer; font-size: 0.78rem; transition: all 0.2s; font-family: 'Inter', sans-serif; white-space: nowrap; }
   .btn-logout:hover { border-color: var(--pink); color: var(--pink); }
   .admin-body { max-width: 960px; margin: 0 auto; padding: 40px 24px 80px; }
+
+  /* ADMIN STATS BAR */
+  .admin-stats-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 36px; }
+  .admin-stat { background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; text-align: center; }
+  .admin-stat-num { font-family: 'Orbitron', monospace; font-size: 1.6rem; font-weight: 900; background: linear-gradient(135deg, var(--pink), var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .admin-stat-label { font-size: 0.68rem; letter-spacing: 1px; text-transform: uppercase; opacity: 0.4; margin-top: 4px; }
+
   .admin-section-title { font-family: 'Orbitron', monospace; font-size: 1.3rem; font-weight: 700; color: #fff; margin-bottom: 6px; }
   .admin-section-sub { font-size: 0.82rem; opacity: 0.4; margin-bottom: 28px; }
   .admin-panels-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-bottom: 28px; }
-  .admin-panel-card { background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px; }
-  .apc-title { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1rem; color: #fff; letter-spacing: 1px; margin-bottom: 3px; }
-  .apc-sub { font-size: 0.75rem; opacity: 0.4; margin-bottom: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .admin-panel-card { background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 14px; padding: 20px 22px; transition: border-color 0.2s; }
+  .admin-panel-card:hover { border-color: rgba(255,45,120,0.25); }
+  .apc-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
+  .apc-id { font-size: 0.62rem; letter-spacing: 1px; text-transform: uppercase; color: var(--pink); opacity: 0.6; background: rgba(255,45,120,0.08); border: 1px solid rgba(255,45,120,0.15); border-radius: 4px; padding: 2px 7px; white-space: nowrap; }
+  .apc-title { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1.05rem; color: #fff; letter-spacing: 1px; margin-bottom: 2px; }
+  .apc-subtitle { font-size: 0.78rem; color: var(--cyan); opacity: 0.7; margin-bottom: 8px; }
+  .apc-desc { font-size: 0.78rem; opacity: 0.4; line-height: 1.5; margin-bottom: 12px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .apc-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+  .apc-tag { font-size: 0.65rem; letter-spacing: 0.5px; padding: 3px 9px; border-radius: 20px; border: 1px solid; }
+  .apc-tag.file { color: #4ade80; border-color: rgba(74,222,128,0.3); background: rgba(74,222,128,0.07); }
+  .apc-tag.url { color: var(--cyan); border-color: rgba(0,229,255,0.3); background: rgba(0,229,255,0.07); }
+  .apc-tag.discord { color: #818cf8; border-color: rgba(129,140,248,0.3); background: rgba(129,140,248,0.07); }
+  .apc-meta { font-size: 0.72rem; opacity: 0.35; margin-bottom: 14px; display: flex; flex-direction: column; gap: 3px; }
+  .apc-meta span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .admin-card-btns { display: flex; gap: 8px; }
-  .btn-edit-card { background: rgba(0,229,255,0.08); border: 1px solid rgba(0,229,255,0.25); color: var(--cyan); font-size: 0.72rem; padding: 5px 14px; border-radius: 6px; cursor: pointer; transition: background 0.2s; font-family: 'Inter', sans-serif; }
+  .btn-edit-card { background: rgba(0,229,255,0.08); border: 1px solid rgba(0,229,255,0.25); color: var(--cyan); font-size: 0.72rem; padding: 7px 16px; border-radius: 6px; cursor: pointer; transition: background 0.2s; font-family: 'Inter', sans-serif; }
   .btn-edit-card:hover { background: rgba(0,229,255,0.18); }
-  .btn-delete-card { background: rgba(255,45,120,0.08); border: 1px solid rgba(255,45,120,0.25); color: var(--pink); font-size: 0.72rem; padding: 5px 14px; border-radius: 6px; cursor: pointer; transition: background 0.2s; font-family: 'Inter', sans-serif; }
+  .btn-delete-card { background: rgba(255,45,120,0.08); border: 1px solid rgba(255,45,120,0.25); color: var(--pink); font-size: 0.72rem; padding: 7px 16px; border-radius: 6px; cursor: pointer; transition: background 0.2s; font-family: 'Inter', sans-serif; }
   .btn-delete-card:hover { background: rgba(255,45,120,0.18); }
   .btn-add-panel { display: inline-flex; align-items: center; gap: 10px; background: linear-gradient(90deg, var(--pink), var(--purple)); color: #fff; border: none; border-radius: 12px; padding: 14px 28px; font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1rem; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; transition: all 0.2s; }
   .btn-add-panel:hover { opacity: 0.9; transform: translateY(-1px); }
@@ -184,14 +208,30 @@
   /* EDITOR */
   .editor-overlay { display: none; position: fixed; inset: 0; z-index: 400; background: rgba(5,8,16,0.92); backdrop-filter: blur(10px); align-items: center; justify-content: center; padding: 20px; }
   .editor-overlay.show { display: flex; animation: fadeIn 0.2s ease; }
-  .editor-box { background: linear-gradient(135deg, #0d1229, #100d22); border: 1px solid rgba(255,45,120,0.22); border-radius: 22px; padding: 40px; width: 100%; max-width: 520px; max-height: 90vh; overflow-y: auto; animation: slideUp 0.3s ease; }
+  .editor-box { background: linear-gradient(135deg, #0d1229, #100d22); border: 1px solid rgba(255,45,120,0.22); border-radius: 22px; padding: 40px; width: 100%; max-width: 560px; max-height: 92vh; overflow-y: auto; animation: slideUp 0.3s ease; }
   .editor-title { font-family: 'Orbitron', monospace; font-size: 1.15rem; font-weight: 700; color: #fff; margin-bottom: 4px; }
   .editor-sub { font-size: 0.76rem; opacity: 0.4; margin-bottom: 28px; }
-  .editor-field { margin-bottom: 16px; }
+  .editor-section-label { font-size: 0.68rem; letter-spacing: 2px; text-transform: uppercase; color: var(--cyan); margin-bottom: 12px; margin-top: 22px; padding-bottom: 8px; border-bottom: 1px solid rgba(0,229,255,0.1); }
+  .editor-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .editor-field { margin-bottom: 14px; }
   .editor-field label { display: block; font-size: 0.7rem; letter-spacing: 1px; text-transform: uppercase; opacity: 0.45; margin-bottom: 5px; }
   .editor-field input, .editor-field textarea { width: 100%; background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 9px; padding: 10px 14px; color: #fff; font-size: 0.88rem; outline: none; transition: border-color 0.2s; font-family: 'Inter', sans-serif; resize: vertical; }
   .editor-field input:focus, .editor-field textarea:focus { border-color: var(--pink); background: rgba(255,45,120,0.04); }
-  .editor-btns { display: flex; gap: 12px; margin-top: 22px; }
+
+  /* FILE DROP ZONE */
+  .drop-zone { border: 2px dashed rgba(255,45,120,0.3); border-radius: 12px; padding: 28px 20px; text-align: center; cursor: pointer; transition: all 0.2s; background: rgba(255,45,120,0.03); position: relative; }
+  .drop-zone:hover, .drop-zone.drag-over { border-color: var(--pink); background: rgba(255,45,120,0.07); }
+  .drop-zone input[type=file] { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+  .drop-icon { font-size: 2rem; margin-bottom: 8px; }
+  .drop-title { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 0.95rem; color: #fff; margin-bottom: 4px; letter-spacing: 1px; }
+  .drop-sub { font-size: 0.72rem; opacity: 0.4; }
+  .drop-chosen { margin-top: 10px; font-size: 0.78rem; color: var(--cyan); display: none; }
+  .drop-chosen.show { display: block; }
+
+  .url-divider { display: flex; align-items: center; gap: 12px; margin: 14px 0; font-size: 0.7rem; opacity: 0.3; letter-spacing: 2px; text-transform: uppercase; }
+  .url-divider::before, .url-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  .editor-btns { display: flex; gap: 12px; margin-top: 26px; }
   .btn-save { flex: 1; background: linear-gradient(90deg, var(--pink), var(--purple)); color: #fff; border: none; border-radius: 10px; padding: 13px; font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1rem; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; transition: opacity 0.2s; }
   .btn-save:hover { opacity: 0.88; }
   .btn-cancel-edit { background: none; border: 1px solid var(--border); color: var(--text); border-radius: 10px; padding: 13px 22px; cursor: pointer; font-size: 0.82rem; transition: all 0.2s; font-family: 'Inter', sans-serif; }
@@ -200,7 +240,7 @@
   @media (max-width: 700px) {
     .steps { flex-direction: column; }
     .steps::before { display: none; }
-    .trust-grid, .panels-grid, .admin-panels-grid { grid-template-columns: 1fr; }
+    .trust-grid, .panels-grid, .admin-panels-grid, .admin-stats-bar, .editor-row { grid-template-columns: 1fr; }
     .dl-card { padding: 36px 24px; }
     h1 { font-size: 2.4rem; }
   }
@@ -276,14 +316,8 @@
   <div class="alert-bar"><span class="alert-icon">⚠️</span><span>Use responsibly. ION Services is intended for educational and private server use only. Always check the relevant terms of service for any game you play.</span></div>
 
   <div class="disclaimer">
-    <div class="disclaimer-title">⚖️ Educational Use Only — Disclaimer</div>
-    <p><div class="disclaimer">
-  <div class="disclaimer-title">⚖️ Disclaimer</div>
-  <p>
-    Ion Services and its affiliates are not responsible for any actions taken against your account as a result of using our products. By downloading or using any of our services, you acknowledge and agree that Ion Services holds no liability for account restrictions, suspensions, or bans.<br><br>
-    Furthermore, Ion Services is under no obligation to provide compensation, replacements, or support in the event that action is taken against your account. By accessing our products, you agree to these terms in full.
-  </p>
-</div></p>
+    <div class="disclaimer-title">⚖️ Disclaimer</div>
+    <p>Ion Services and its affiliates are not responsible for any actions taken against your account as a result of using our products. By downloading or using any of our services, you acknowledge and agree that Ion Services holds no liability for account restrictions, suspensions, or bans.<br><br>Furthermore, Ion Services is under no obligation to provide compensation, replacements, or support in the event that action is taken against your account. By accessing our products, you agree to these terms in full.</p>
   </div>
 
   <footer>© 2025 ION Services &nbsp;·&nbsp; <span>discord.gg/zQHDpnNdup</span> &nbsp;·&nbsp; All rights reserved</footer>
@@ -323,11 +357,21 @@
   <div class="admin-nav">
     <div class="logo">ION SERVICES</div>
     <span class="admin-badge">⚙ Admin Panel</span>
+    <div class="sync-status">
+      <div class="sync-dot" id="syncDot"></div>
+      <span id="syncLabel">Synced</span>
+    </div>
     <button class="btn-logout" onclick="doLogout()">Logout</button>
   </div>
   <div class="admin-body">
+    <div class="admin-stats-bar" id="adminStatsBar">
+      <div class="admin-stat"><div class="admin-stat-num" id="aStatPanels">0</div><div class="admin-stat-label">Total Panels</div></div>
+      <div class="admin-stat"><div class="admin-stat-num">523</div><div class="admin-stat-label">Total Users</div></div>
+      <div class="admin-stat"><div class="admin-stat-num">611</div><div class="admin-stat-label">Downloads</div></div>
+      <div class="admin-stat"><div class="admin-stat-num">31</div><div class="admin-stat-label">Online Now</div></div>
+    </div>
     <div class="admin-section-title">Download Panels</div>
-    <div class="admin-section-sub">Add, edit or remove the download cards shown on the main page. All changes update the site instantly.</div>
+    <div class="admin-section-sub">Add, edit or remove the download cards shown on the main page. All changes sync to the cloud instantly — any admin on any device will see updates immediately.</div>
     <div class="admin-panels-grid" id="adminPanelsList"></div>
     <button class="btn-add-panel" onclick="openEditor(null)">＋ Add New Panel</button>
   </div>
@@ -337,15 +381,37 @@
 <div class="editor-overlay" id="editorOverlay">
   <div class="editor-box">
     <div class="editor-title" id="editorTitle">Add New Panel</div>
-    <div class="editor-sub">All fields are required to create a download card.</div>
-    <div class="editor-field"><label>Title (main big text)</label><input type="text" id="edTitle" placeholder="e.g. Fortnite"></div>
-    <div class="editor-field"><label>Highlighted word (gets gradient colour)</label><input type="text" id="edSubtitle" placeholder="e.g. Free"></div>
-    <div class="editor-field"><label>Description (text below title)</label><textarea id="edDesc" rows="3" placeholder="e.g. Download instantly and join hundreds of players..."></textarea></div>
+    <div class="editor-sub">Fill in all fields to create or update a download card.</div>
+
+    <div class="editor-section-label">📝 Panel Text</div>
+    <div class="editor-row">
+      <div class="editor-field"><label>Main Title</label><input type="text" id="edTitle" placeholder="e.g. Fortnite"></div>
+      <div class="editor-field"><label>Highlighted Word (gradient)</label><input type="text" id="edSubtitle" placeholder="e.g. Free"></div>
+    </div>
+    <div class="editor-field"><label>Description</label><textarea id="edDesc" rows="3" placeholder="e.g. Download instantly and join hundreds of players..."></textarea></div>
+
+    <div class="editor-section-label">⬇️ Download</div>
     <div class="editor-field"><label>Download Button Text</label><input type="text" id="edDlBtn" placeholder="e.g. Download Now"></div>
-    <div class="editor-field"><label>Download File Path or URL</label><input type="text" id="edDlUrl" placeholder="e.g. FN.exe or https://mediafire.com/file/..."></div>
-    <div class="editor-field"><label>Discord Button Text</label><input type="text" id="edDiscordBtn" placeholder="e.g. Join Discord"></div>
-    <div class="editor-field"><label>Discord Invite URL</label><input type="text" id="edDiscordUrl" placeholder="e.g. https://discord.gg/zQHDpnNdup"></div>
-    <div class="editor-field"><label>File Name (shown in the info bar)</label><input type="text" id="edFilename" placeholder="e.g. Fortnite.exe"></div>
+    <div class="editor-field">
+      <label>File — Browse or Drop Here</label>
+      <div class="drop-zone" id="dropZone">
+        <input type="file" id="edFileInput" onchange="handleFileSelect(this)">
+        <div class="drop-icon">📦</div>
+        <div class="drop-title">Browse or drop a file here</div>
+        <div class="drop-sub">Any file type accepted · Max size depends on hosting</div>
+        <div class="drop-chosen" id="dropChosen"></div>
+      </div>
+    </div>
+    <div class="url-divider">or use a URL instead</div>
+    <div class="editor-field"><label>External Download URL (optional if file uploaded)</label><input type="text" id="edDlUrl" placeholder="e.g. https://mediafire.com/file/..."></div>
+    <div class="editor-field"><label>Filename shown on card</label><input type="text" id="edFilename" placeholder="e.g. Fortnite.exe"></div>
+
+    <div class="editor-section-label">💬 Discord</div>
+    <div class="editor-row">
+      <div class="editor-field"><label>Discord Button Text</label><input type="text" id="edDiscordBtn" placeholder="e.g. Join Discord"></div>
+      <div class="editor-field"><label>Discord Invite URL</label><input type="text" id="edDiscordUrl" placeholder="e.g. https://discord.gg/..."></div>
+    </div>
+
     <div class="editor-btns">
       <button class="btn-save" onclick="savePanel()">✓ Save Panel</button>
       <button class="btn-cancel-edit" onclick="closeEditor()">Cancel</button>
@@ -354,15 +420,65 @@
 </div>
 
 <script>
+// ── CONFIG ──────────────────────────────────────────────
+const JSONBIN_ID  = '69c34965c3097a1dd558dee9';
+const JSONBIN_KEY = '$2b$10$4ynvYlhfVGunKlzC0Lch3.n76lECBuQ8Ld3LdNhHGrL8KGKbX5Ge'; // replace with your real key
+const BIN_URL     = `https://api.jsonbin.io/v3/b/${JSONBIN_ID}`;
+
 const DISCORD_SVG = `<svg class="discord-svg" viewBox="0 0 71 55" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M60.1045 4.8978C55.5792 2.8214 50.7265 1.2916 45.6527 0.41542C45.5603 0.39851 45.468 0.44077 45.4204 0.52529C44.7963 1.6353 44.105 3.0834 43.6209 4.2216C38.1637 3.4046 32.7345 3.4046 27.3892 4.2216C26.905 3.0581 26.1886 1.6353 25.5617 0.52529C25.5141 0.44359 25.4218 0.40133 25.3294 0.41542C20.2584 1.2888 15.4057 2.8186 10.8776 4.8978C10.8384 4.9147 10.8048 4.9429 10.7825 4.9795C1.57795 18.7309 -0.943561 32.1443 0.293408 45.3914C0.299005 45.4562 0.335386 45.5182 0.385761 45.5576C6.45866 50.0174 12.3413 52.7249 18.1147 54.5195C18.2071 54.5477 18.305 54.5139 18.3638 54.4378C19.7295 52.5728 20.9469 50.6063 21.9907 48.5383C22.0523 48.4172 21.9935 48.2735 21.8676 48.2256C19.9366 47.4931 18.0979 46.6 16.3292 45.5858C16.1893 45.5041 16.1781 45.304 16.3068 45.2082C16.679 44.9293 17.0513 44.6391 17.4067 44.3461C17.471 44.2926 17.5606 44.2813 17.6362 44.3151C29.2558 49.6202 41.8354 49.6202 53.3179 44.3151C53.3935 44.2785 53.4831 44.2898 53.5502 44.3433C53.9057 44.6363 54.2779 44.9293 54.6529 45.2082C54.7816 45.304 54.7732 45.5041 54.6333 45.5858C52.8646 46.6197 51.0259 47.4931 49.0921 48.2228C48.9662 48.2707 48.9102 48.4172 48.9718 48.5383C50.038 50.6034 51.2554 52.5699 52.5959 54.435C52.6519 54.5139 52.7526 54.5477 52.845 54.5195C58.6464 52.7249 64.529 50.0174 70.6019 45.5576C70.6551 45.5182 70.6887 45.459 70.6943 45.3942C72.1747 30.0791 68.2147 16.7757 60.1968 4.9823C60.1772 4.9429 60.1437 4.9147 60.1045 4.8978Z" fill="white"/></svg>`;
 
-let panels = [
-  { id: 1, title: 'Fortnite', subtitle: 'Free', desc: 'Download instantly and join hundreds of players already using ION Services. No BS, no subscriptions — just power.', dlBtn: 'Download Now', dlUrl: 'FN.exe', discordBtn: 'Join Discord', discordUrl: 'https://discord.gg/zQHDpnNdup', filename: 'Fortnite.exe' }
-];
+// ── STATE ────────────────────────────────────────────────
+let panels = [];
 let editingId = null;
+let uploadedFileData = null; // { name, data (base64 or URL) }
 
-function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+// ── UTILS ────────────────────────────────────────────────
+function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
 
+// ── SYNC ─────────────────────────────────────────────────
+function setSyncStatus(state) {
+  const dot = document.getElementById('syncDot');
+  const lbl = document.getElementById('syncLabel');
+  dot.className = 'sync-dot' + (state === 'saving' ? ' saving' : state === 'error' ? ' error' : '');
+  lbl.textContent = state === 'saving' ? 'Saving…' : state === 'error' ? 'Error' : 'Synced';
+}
+
+async function loadFromCloud() {
+  try {
+    const res = await fetch(BIN_URL + '/latest', {
+      headers: { 'X-Master-Key': JSONBIN_KEY }
+    });
+    if (!res.ok) throw new Error('fetch failed');
+    const json = await res.json();
+    const data = json.record;
+    panels = Array.isArray(data) ? data : [];
+  } catch(e) {
+    console.warn('Cloud load failed, using defaults', e);
+    panels = [
+      { id: 1, title: 'Fortnite', subtitle: 'Free', desc: 'Download instantly and join hundreds of players already using ION Services. No BS, no subscriptions — just power.', dlBtn: 'Download Now', dlUrl: 'FN.exe', discordBtn: 'Join Discord', discordUrl: 'https://discord.gg/zQHDpnNdup', filename: 'Fortnite.exe' }
+    ];
+  }
+  renderPanels();
+}
+
+async function saveToCloud() {
+  setSyncStatus('saving');
+  try {
+    const res = await fetch(BIN_URL, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', 'X-Master-Key': JSONBIN_KEY },
+      body: JSON.stringify(panels)
+    });
+    if (!res.ok) throw new Error('save failed');
+    setSyncStatus('synced');
+  } catch(e) {
+    console.error('Cloud save failed', e);
+    setSyncStatus('error');
+    setTimeout(() => setSyncStatus('synced'), 3000);
+  }
+}
+
+// ── PANELS RENDER ────────────────────────────────────────
 function renderPanels() {
   const grid = document.getElementById('panelsGrid');
   grid.innerHTML = '';
@@ -384,10 +500,9 @@ function renderPanels() {
         <span><span class="badge">🔒</span> Verified Clean</span>
       </div>
       <div class="btn-group">
-        <button class="btn-dl" onclick="startDownload('${esc(p.dlUrl)}','${esc(p.filename)}')">⬇ ${esc(p.dlBtn)}</button>
+        <button class="btn-dl" onclick="startDownload(${p.id})">⬇ ${esc(p.dlBtn)}</button>
         <a class="btn-discord" href="${esc(p.discordUrl)}" target="_blank" rel="noopener">${DISCORD_SVG} ${esc(p.discordBtn)}</a>
       </div>`;
-    // Centre lone card or last odd card
     if (panels.length === 1 || (panels.length % 2 !== 0 && i === panels.length - 1)) {
       card.style.cssText = 'grid-column:1/-1;max-width:560px;margin:0 auto;width:100%';
     }
@@ -395,19 +510,46 @@ function renderPanels() {
   });
 }
 
+// ── ADMIN PANELS RENDER ──────────────────────────────────
 function renderAdminPanels() {
   const list = document.getElementById('adminPanelsList');
+  const statEl = document.getElementById('aStatPanels');
+  if (statEl) statEl.textContent = panels.length;
   list.innerHTML = '';
   if (!panels.length) { list.innerHTML = '<p class="no-panels-msg">No panels yet. Add one below.</p>'; return; }
   panels.forEach(p => {
+    const isEmbedded = p.dlUrl && p.dlUrl.startsWith('data:');
+    const isUrl = p.dlUrl && !p.dlUrl.startsWith('data:');
     const card = document.createElement('div');
     card.className = 'admin-panel-card';
-    card.innerHTML = `<div class="apc-title">${esc(p.title)} ${esc(p.subtitle)}</div><div class="apc-sub">${esc(p.desc)}</div><div class="admin-card-btns"><button class="btn-edit-card" onclick="openEditor(${p.id})">✏ Edit</button><button class="btn-delete-card" onclick="deletePanel(${p.id})">🗑 Delete</button></div>`;
+    card.innerHTML = `
+      <div class="apc-header">
+        <div>
+          <div class="apc-title">${esc(p.title)} ${esc(p.subtitle)}</div>
+          <div class="apc-subtitle">${esc(p.filename)}</div>
+        </div>
+        <div class="apc-id">#${p.id}</div>
+      </div>
+      <div class="apc-desc">${esc(p.desc)}</div>
+      <div class="apc-tags">
+        ${isEmbedded ? '<span class="apc-tag file">📦 Embedded File</span>' : ''}
+        ${isUrl && !isEmbedded ? '<span class="apc-tag url">🔗 URL Link</span>' : ''}
+        <span class="apc-tag discord">💬 ${esc(p.discordBtn)}</span>
+      </div>
+      <div class="apc-meta">
+        <span>⬇ Button: "${esc(p.dlBtn)}"</span>
+        <span>🔗 ${isEmbedded ? 'Embedded (' + Math.round(p.dlUrl.length/1024) + 'KB)' : esc(p.dlUrl||'—')}</span>
+        <span>💬 ${esc(p.discordUrl)}</span>
+      </div>
+      <div class="admin-card-btns">
+        <button class="btn-edit-card" onclick="openEditor(${p.id})">✏ Edit</button>
+        <button class="btn-delete-card" onclick="deletePanel(${p.id})">🗑 Delete</button>
+      </div>`;
     list.appendChild(card);
   });
 }
 
-// LOGIN
+// ── LOGIN ────────────────────────────────────────────────
 function showLogin() {
   document.getElementById('loginErr').textContent = '';
   document.getElementById('loginUser').value = '';
@@ -433,49 +575,143 @@ function doLogout() { document.getElementById('adminPage').classList.remove('sho
 document.getElementById('loginPass').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
 document.getElementById('loginUser').addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('loginPass').focus(); });
 
-// EDITOR
+// ── FILE DROP ────────────────────────────────────────────
+function handleFileSelect(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const chosen = document.getElementById('dropChosen');
+  chosen.textContent = '✓ ' + file.name + ' (' + (file.size > 1024*1024 ? (file.size/1024/1024).toFixed(1)+'MB' : Math.round(file.size/1024)+'KB') + ')';
+  chosen.classList.add('show');
+  // Read as base64
+  const reader = new FileReader();
+  reader.onload = e => { uploadedFileData = { name: file.name, data: e.target.result }; };
+  reader.readAsDataURL(file);
+}
+
+// Drag-over visual
+const dz = document.getElementById('dropZone');
+dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('drag-over'); });
+dz.addEventListener('dragleave', () => dz.classList.remove('drag-over'));
+dz.addEventListener('drop', e => {
+  e.preventDefault(); dz.classList.remove('drag-over');
+  const file = e.dataTransfer.files[0];
+  if (!file) return;
+  document.getElementById('edFileInput').files; // can't set directly, use manual
+  const chosen = document.getElementById('dropChosen');
+  chosen.textContent = '✓ ' + file.name + ' (' + (file.size > 1024*1024 ? (file.size/1024/1024).toFixed(1)+'MB' : Math.round(file.size/1024)+'KB') + ')';
+  chosen.classList.add('show');
+  const reader = new FileReader();
+  reader.onload = ev => { uploadedFileData = { name: file.name, data: ev.target.result }; };
+  reader.readAsDataURL(file);
+});
+
+// ── EDITOR ──────────────────────────────────────────────
 function openEditor(id) {
   editingId = id;
+  uploadedFileData = null;
   document.getElementById('editorTitle').textContent = id ? 'Edit Panel' : 'Add New Panel';
+  document.getElementById('dropChosen').textContent = '';
+  document.getElementById('dropChosen').classList.remove('show');
+  document.getElementById('edFileInput').value = '';
+
   const def = { title:'', subtitle:'', desc:'', dlBtn:'Download Now', dlUrl:'', discordBtn:'Join Discord', discordUrl:'https://discord.gg/zQHDpnNdup', filename:'' };
   const p = id ? panels.find(x => x.id === id) : def;
-  ['Title','Subtitle','Desc','DlBtn','DlUrl','DiscordBtn','DiscordUrl','Filename'].forEach(k => {
-    document.getElementById('ed'+k).value = p[k.charAt(0).toLowerCase()+k.slice(1)] || '';
-  });
+
+  document.getElementById('edTitle').value = p.title || '';
+  document.getElementById('edSubtitle').value = p.subtitle || '';
+  document.getElementById('edDesc').value = p.desc || '';
+  document.getElementById('edDlBtn').value = p.dlBtn || '';
+  document.getElementById('edDlUrl').value = (p.dlUrl && !p.dlUrl.startsWith('data:')) ? p.dlUrl : '';
+  document.getElementById('edDiscordBtn').value = p.discordBtn || '';
+  document.getElementById('edDiscordUrl').value = p.discordUrl || '';
+  document.getElementById('edFilename').value = p.filename || '';
+
+  if (id && p.dlUrl && p.dlUrl.startsWith('data:')) {
+    const chosen = document.getElementById('dropChosen');
+    chosen.textContent = '✓ Embedded file (re-upload to replace)';
+    chosen.classList.add('show');
+    uploadedFileData = { name: p.filename, data: p.dlUrl };
+  }
+
   document.getElementById('editorOverlay').classList.add('show');
   setTimeout(() => document.getElementById('edTitle').focus(), 150);
 }
-function closeEditor() { document.getElementById('editorOverlay').classList.remove('show'); editingId = null; }
-function savePanel() {
-  const fields = { title:'edTitle', subtitle:'edSubtitle', desc:'edDesc', dlBtn:'edDlBtn', dlUrl:'edDlUrl', discordBtn:'edDiscordBtn', discordUrl:'edDiscordUrl', filename:'edFilename' };
-  const data = {};
-  for (const [k,id] of Object.entries(fields)) {
-    data[k] = document.getElementById(id).value.trim();
-    if (!data[k]) { document.getElementById(id).focus(); alert('Please fill in all fields.'); return; }
+function closeEditor() { document.getElementById('editorOverlay').classList.remove('show'); editingId = null; uploadedFileData = null; }
+
+async function savePanel() {
+  const data = {
+    title:      document.getElementById('edTitle').value.trim(),
+    subtitle:   document.getElementById('edSubtitle').value.trim(),
+    desc:       document.getElementById('edDesc').value.trim(),
+    dlBtn:      document.getElementById('edDlBtn').value.trim(),
+    dlUrl:      '',
+    discordBtn: document.getElementById('edDiscordBtn').value.trim(),
+    discordUrl: document.getElementById('edDiscordUrl').value.trim(),
+    filename:   document.getElementById('edFilename').value.trim()
+  };
+
+  // Determine download source: embedded file takes priority, then URL
+  if (uploadedFileData && uploadedFileData.data) {
+    data.dlUrl = uploadedFileData.data;
+    if (!data.filename) data.filename = uploadedFileData.name;
+  } else {
+    data.dlUrl = document.getElementById('edDlUrl').value.trim();
   }
-  if (editingId) { const idx = panels.findIndex(x => x.id === editingId); panels[idx] = { id: editingId, ...data }; }
-  else { panels.push({ id: panels.length ? Math.max(...panels.map(x=>x.id))+1 : 1, ...data }); }
-  closeEditor(); renderPanels(); renderAdminPanels();
-}
-function deletePanel(id) {
-  if (!confirm('Delete this panel from the site?')) return;
-  panels = panels.filter(x => x.id !== id);
-  renderPanels(); renderAdminPanels();
+
+  // Validate required fields (dlUrl can come from either source)
+  const required = { title: 'Main Title', subtitle: 'Highlighted Word', desc: 'Description', dlBtn: 'Download Button Text', dlUrl: 'A file or URL', discordBtn: 'Discord Button Text', discordUrl: 'Discord URL', filename: 'Filename' };
+  for (const [k, label] of Object.entries(required)) {
+    if (!data[k]) {
+      if (k === 'dlUrl') { alert('Please upload a file or enter an external URL.'); return; }
+      const fieldMap = { title:'edTitle', subtitle:'edSubtitle', desc:'edDesc', dlBtn:'edDlBtn', discordBtn:'edDiscordBtn', discordUrl:'edDiscordUrl', filename:'edFilename' };
+      if (fieldMap[k]) document.getElementById(fieldMap[k]).focus();
+      alert(`Please fill in: ${label}`);
+      return;
+    }
+  }
+
+  if (editingId) {
+    const idx = panels.findIndex(x => x.id === editingId);
+    panels[idx] = { id: editingId, ...data };
+  } else {
+    panels.push({ id: panels.length ? Math.max(...panels.map(x=>x.id))+1 : 1, ...data });
+  }
+
+  closeEditor();
+  renderPanels();
+  renderAdminPanels();
+  await saveToCloud();
 }
 
-// DOWNLOAD
-function startDownload(url, filename) {
-  document.getElementById('modalSub').textContent = filename + ' is being prepared. Your download will start automatically.';
+async function deletePanel(id) {
+  if (!confirm('Delete this panel from the site?')) return;
+  panels = panels.filter(x => x.id !== id);
+  renderPanels();
+  renderAdminPanels();
+  await saveToCloud();
+}
+
+// ── DOWNLOAD ─────────────────────────────────────────────
+function startDownload(panelId) {
+  const p = panels.find(x => x.id === panelId);
+  if (!p) return;
+  document.getElementById('modalSub').textContent = p.filename + ' is being prepared. Your download will start shortly.';
   document.getElementById('modal').classList.add('show');
   document.getElementById('progFill').style.width = '0';
   document.getElementById('progLabel').textContent = '0%';
+
   let pct = 0;
   const fill = document.getElementById('progFill'), label = document.getElementById('progLabel');
   const iv = setInterval(() => {
     pct += Math.random() * 8 + 2;
     if (pct >= 100) {
       pct = 100; clearInterval(iv); label.textContent = 'Complete!';
-      const a = document.createElement('a'); a.href = url; a.download = filename; a.click();
+      const a = document.createElement('a');
+      a.href = p.dlUrl;
+      a.download = p.filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
     } else { label.textContent = Math.floor(pct) + '%'; }
     fill.style.width = pct + '%';
   }, 120);
@@ -484,7 +720,7 @@ function closeModal() { document.getElementById('modal').classList.remove('show'
 document.getElementById('modal').addEventListener('click', e => { if (e.target === document.getElementById('modal')) closeModal(); });
 document.getElementById('editorOverlay').addEventListener('click', e => { if (e.target === document.getElementById('editorOverlay')) closeEditor(); });
 
-// PARTICLES
+// ── PARTICLES ────────────────────────────────────────────
 const pc = document.getElementById('particles');
 for (let i = 0; i < 40; i++) {
   const p = document.createElement('div'); p.className = 'particle';
@@ -493,6 +729,7 @@ for (let i = 0; i < 40; i++) {
 }
 setTimeout(() => { document.querySelectorAll('.star').forEach((s,i) => setTimeout(() => s.classList.add('animate'), i*120)); }, 500);
 
+// ── COUNTERS ─────────────────────────────────────────────
 function animateCounter(el) {
   const target = +el.dataset.target, dur = 1800, t0 = performance.now();
   (function tick(now) { const ease = 1-Math.pow(1-Math.min((now-t0)/dur,1),3); el.textContent = Math.floor(ease*target).toLocaleString(); if (ease<1) requestAnimationFrame(tick); })(t0);
@@ -500,7 +737,8 @@ function animateCounter(el) {
 const obs = new IntersectionObserver(en => { en.forEach(e => { if (e.isIntersecting) { document.querySelectorAll('.counting').forEach(animateCounter); obs.disconnect(); } }); }, { threshold: 0.3 });
 obs.observe(document.querySelector('.stats'));
 
-renderPanels();
+// ── INIT ─────────────────────────────────────────────────
+loadFromCloud();
 </script>
 </body>
 </html>
